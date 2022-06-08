@@ -10,10 +10,13 @@ and continuous integration will be impossible.
 
 A good testing suite this can't be built overnight. When your team is new to automated 
 tests start writing tests to ensure the new functionality works as intended. This will help
-slowly build up tests overtime. However, as the team is new to testing they will likely
-still have bugs that occur, either found through manual testing or in production! 
-It's important to use these bugs to build your test suite as you move towards continuous integration. 
+slowly build up tests overtime. However, a team that is new to testing they will likely
+still produce some bugs, either found through manual testing or in production! 
+This can be okay, but it's important to use these bugs to build your test suite as you move towards continuous integration. 
 
+When a bug is found on your team the first thing you should do is write a failing automated test. This 
+confirms the behavior, and sets the requirement for what you need to do to fix the bug. More importantly, 
+this test should ideally stick in your teams mind on how they could have avoided the original mistake and gotten feedback sooner. 
 
 
 # Examples
@@ -41,7 +44,16 @@ when the user clicked on the link. No problem, another opportunity to build up o
 
 I used a tool called [broken link checker](https://www.npmjs.com/package/broken-link-checker) to crawl 
 through the site and ensure the pages don't result in errors. I also setup a github action to run 
-our tests on pull requests and pushes to the remote. It was super simple to setup! Check it 
+our tests on pull requests and pushes to the remote. It was super simple to setup! 
+
+I did run into an interesting dilemma. I wasn't sure if I wanted to include extra links in this check.
+It may be useful to include external links if a link on the page goes bad, or if someone mistyped a link
+they meant to put in. Ultimately, after trying it out I decided not to include external links in the tests. 
+I didn't want to add the noise of failing tests if it was out of the control of the content 
+creator as there's many sites that block crawlers. You can hardcode your crawler to skip these but
+I didn't want the project to have to maintain the overhead of keeping a list 
+of those sites. Depending on the project it may be worth it but for Minimum-CD I figured it would be better to only scan 
+internal links. 
 
 Remember to reach continuous delivery we need to be able to wholly trust the pipeline 
 on if we are able to deliver or not.  
